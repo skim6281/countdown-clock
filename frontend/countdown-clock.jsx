@@ -12,6 +12,5 @@ class Root extends React.Component {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("hello");
   ReactDOM.render(<Root/>, document.getElementById('main'));
 });
