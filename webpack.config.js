@@ -5,7 +5,6 @@ module.exports = {
   context: __dirname,
   entry: './frontend/countdown-clock.jsx',
   output: {
-    path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js'
   },
   resolve: {
