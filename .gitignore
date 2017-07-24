@@ -1,0 +1,16 @@
+/.bundle
+bundle.js
+bundle.js.map
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+byebug_history
+
+node_modules/
+.DS_Store
+npm-debug.log
+
+/config/application.yml
