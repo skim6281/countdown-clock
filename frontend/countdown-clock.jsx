@@ -7,13 +7,14 @@ class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      times: []
+      times: [],
+      averageTime: 0
     }
     this.getTimes = this.getTimes.bind(this);
     this.renderTimes = this.renderTimes.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getTimes();
   }
 
@@ -28,6 +29,18 @@ class Clock extends React.Component {
     };
     xmlhttp.open('GET', url);
     xmlhttp.send();
+
+    let newTimes = [];
+    this.state.times.forEach(time => {
+      let date = new Date(time*1000);
+      let seconds = date.getTime()/1000;
+      newTimes.push(seconds);
+    });
+    this.setState({times: newTimes});
+  }
+
+  getAverageTime() {
+
   }
 
   renderTimes() {
@@ -44,7 +57,7 @@ class Clock extends React.Component {
       var formattedTime = date + "";
       return(
         <div>
-          {formattedTime}
+          {time}
         </div>
       )
     });
