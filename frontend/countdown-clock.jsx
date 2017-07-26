@@ -8,11 +8,14 @@ class Clock extends React.Component {
     super(props);
     this.state = {
       times: [],
-      averageTime: 0
+      averageTime: 0,
+      counter: ""
     }
     this.getTimes = this.getTimes.bind(this);
     this.renderTimes = this.renderTimes.bind(this);
     this.getAverageTime = this.getAverageTime.bind(this);
+    this.convertSeconds = this.convertSeconds.bind(this);
+    this.setCounter = this.setCounter.bind(this);
   }
 
   componentWillMount() {
@@ -33,6 +36,7 @@ class Clock extends React.Component {
         // });
         this.setState({times: data});
         this.getAverageTime();
+        this.setCounter();
       }
     };
     xmlhttp.open('GET', url);
@@ -48,6 +52,17 @@ class Clock extends React.Component {
     // this.getAverageTime();
   }
 
+  setCounter() {
+    if(this.state.times.length >= 1000) {
+      this.setState({counter: "00:00:00:00"});
+      console.log("lksjadflkj");
+    } else {
+      let diff = 1000 - this.state.times.length;
+      let seconds = this.state.averageTime * diff;
+      this.convertSeconds(seconds);
+    }
+  }
+
   getAverageTime() {
     const intervals = [];
     for(let i = 0; i < this.state.times.length - 1; i++) {
@@ -58,7 +73,23 @@ class Clock extends React.Component {
     }, 0)
     let average = Math.ceil(sum / intervals.length);
     this.setState({averageTime: average});
-    console.log("average: " + average);
+  }
+
+  convertSeconds(seconds) {
+    let delta = seconds;
+    let days = Math.floor(delta/86400);
+    delta -= days * 86400;
+
+    let hours = Math.floor(delta/3600) % 24;
+    delta -= hours * 3600;
+
+    let minutes = Math.floor(delta/60) % 60;
+    delta -= minutes * 60;
+
+    let sec = delta % 60;
+
+    this.setState({counter: `${days}:${hours}:${minutes}:${sec}`});
+    console.log(this.state.counter);
   }
 
   renderTimes() {
