@@ -1,0 +1,22 @@
+.clock {
+  width: 100%;
+  font-family: arial;
+  font-size: 24px;
+}
+
+.counter {
+  text-align: center;
+  margin: 20px 0;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  font-size: 18px;
+  background: #30C251;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: #FFF;
+  padding: 5px 10px;
+  cursor: pointer;
+}
