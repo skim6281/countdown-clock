@@ -31,18 +31,13 @@ class Clock extends React.Component {
     this.setState({counter: this.state.counter-1});
   }
 
+  //fetches all commit times from endpoint
   getTimes() {
     const url = 'https://api.sidewalklabs.com/codechallenge/commits';
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.status === 200 && xmlhttp.readyState === XMLHttpRequest.DONE) {
         const data = JSON.parse(xmlhttp.response);
-        // let newTimes = [];
-        // data.forEach(time => {
-        //   let date = new Date(time*1000);
-        //   let seconds = date.getTime()/1000;
-        //   newTimes.push(seconds);
-        // });
         this.setState({times: data});
         this.getAverageTime();
         this.setCounter();
@@ -55,7 +50,6 @@ class Clock extends React.Component {
   setCounter() {
     if(this.state.times.length >= 1000) {
       this.setState({counter: "00:00:00:00"});
-      console.log("lksjadflkj");
     } else {
       let diff = 1000 - this.state.times.length;
       let seconds = this.state.averageTime * diff;
@@ -114,7 +108,6 @@ class Clock extends React.Component {
   render() {
     return(
       <div>
-        TIME
         <div>
           {this.convertSeconds(this.state.counter)}
         </div>
