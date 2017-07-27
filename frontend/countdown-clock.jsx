@@ -103,6 +103,7 @@ class Clock extends React.Component {
   render() {
     return(
       <div className="clock">
+        Countdown to 1000th Commit
         <div className="counter">
           {this.convertSeconds(this.state.counter)}
         </div>
