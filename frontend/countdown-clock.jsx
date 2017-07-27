@@ -9,7 +9,8 @@ class Clock extends React.Component {
     this.state = {
       times: [],
       averageTime: 0,
-      counter: 0
+      counter: 0,
+      countDown: true
     }
     this.getTimes = this.getTimes.bind(this);
     this.getAverageTime = this.getAverageTime.bind(this);
@@ -25,14 +26,14 @@ class Clock extends React.Component {
 
   componentDidMount() {
     this.intervalId = setInterval(this.tick, 1000);
-    if(this.state.counter === 0) {
-      clearInterval(this.intervalId);
-    }
   }
 
   tick() {
-    this.setState({counter: this.state.counter-1});
-
+    if(this.state.countDown === false) {
+      clearInterval(this.intervalId);
+    } else {
+      this.setState({counter: this.state.counter-1});
+    }
   }
 
   //fetches all commit times from endpoint
@@ -52,10 +53,10 @@ class Clock extends React.Component {
   }
 
   setCounter() {
-    if(this.state.times.length >= 1000) {
-      this.setState({counter: 0});
+    if(this.state.times.length >= 415) {
+      this.setState({counter: 0, countDown: false});
     } else {
-      let diff = 1000 - this.state.times.length;
+      let diff = 415 - this.state.times.length;
       let seconds = this.state.averageTime * diff;
       this.setState({counter: seconds});
     }
@@ -95,7 +96,6 @@ class Clock extends React.Component {
     this.setState({times: newTimes});
     this.getAverageTime();
     this.setCounter();
-    console.log("# of commits: " + this.state.times.length);
   }
 
   render() {
