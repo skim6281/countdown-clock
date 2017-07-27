@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +42,6 @@ class Clock extends React.Component {
       if (xmlhttp.status === 200 && xmlhttp.readyState === XMLHttpRequest.DONE) {
         const data = JSON.parse(xmlhttp.response);
         this.setState({times: data});
-        this.getAverageTime();
         this.setCounter();
       }
     };
@@ -53,10 +50,11 @@ class Clock extends React.Component {
   }
 
   setCounter() {
-    if(this.state.times.length >= 415) {
+    this.getAverageTime();
+    if(this.state.times.length >= 1000) {
       this.setState({counter: 0, countDown: false});
     } else {
-      let diff = 415 - this.state.times.length;
+      let diff = 1000 - this.state.times.length;
       let seconds = this.state.averageTime * diff;
       this.setState({counter: seconds});
     }
@@ -94,7 +92,6 @@ class Clock extends React.Component {
     let date = new Date().getTime() / 1000;
     const newTimes = [date, ...this.state.times];
     this.setState({times: newTimes});
-    this.getAverageTime();
     this.setCounter();
   }
 
