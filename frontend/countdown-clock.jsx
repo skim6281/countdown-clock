@@ -9,17 +9,26 @@ class Clock extends React.Component {
     this.state = {
       times: [],
       averageTime: 0,
-      counter: ""
+      counter: 0
     }
     this.getTimes = this.getTimes.bind(this);
     this.renderTimes = this.renderTimes.bind(this);
     this.getAverageTime = this.getAverageTime.bind(this);
     this.convertSeconds = this.convertSeconds.bind(this);
     this.setCounter = this.setCounter.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   componentWillMount() {
     this.getTimes();
+  }
+
+  componentDidMount() {
+    setInterval(this.tick, 1000);
+  }
+
+  tick() {
+    this.setState({counter: this.state.counter-1});
   }
 
   getTimes() {
@@ -41,15 +50,6 @@ class Clock extends React.Component {
     };
     xmlhttp.open('GET', url);
     xmlhttp.send();
-
-    // let newTimes = [];
-    // this.state.times.forEach(time => {
-    //   let date = new Date(time*1000);
-    //   let seconds = date.getTime()/1000;
-    //   newTimes.push(seconds);
-    // });
-    // this.setState({times: newTimes});
-    // this.getAverageTime();
   }
 
   setCounter() {
@@ -59,7 +59,7 @@ class Clock extends React.Component {
     } else {
       let diff = 1000 - this.state.times.length;
       let seconds = this.state.averageTime * diff;
-      this.convertSeconds(seconds);
+      this.setState({counter: seconds});
     }
   }
 
@@ -88,8 +88,7 @@ class Clock extends React.Component {
 
     let sec = delta % 60;
 
-    this.setState({counter: `${days}:${hours}:${minutes}:${sec}`});
-    console.log(this.state.counter);
+    return `${days}:${hours}:${minutes}:${sec}`;
   }
 
   renderTimes() {
@@ -117,7 +116,7 @@ class Clock extends React.Component {
       <div>
         TIME
         <div>
-          {this.renderTimes()}
+          {this.convertSeconds(this.state.counter)}
         </div>
       </div>
     )
