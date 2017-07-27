@@ -12,7 +12,6 @@ class Clock extends React.Component {
       counter: 0
     }
     this.getTimes = this.getTimes.bind(this);
-    this.renderTimes = this.renderTimes.bind(this);
     this.getAverageTime = this.getAverageTime.bind(this);
     this.convertSeconds = this.convertSeconds.bind(this);
     this.setCounter = this.setCounter.bind(this);
@@ -88,26 +87,6 @@ class Clock extends React.Component {
     let sec = delta % 60;
 
     return `${days}:${hours}:${minutes}:${sec}`;
-  }
-
-  renderTimes() {
-    return this.state.times.map(time => {
-      let date = new Date(time*1000);
-      // var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      // var year = date.getFullYear();
-      // var month = months[date.getMonth()];
-      // var day = date.getDate();
-      // var hour = date.getHours();
-      // var min = date.getMinutes();
-      // var sec = date.getSeconds();
-      // var formattedTime = day + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-     var formattedTime = date + "";
-      return(
-        <div>
-          {formattedTime}
-        </div>
-      )
-    });
   }
 
   handleCommit() {
