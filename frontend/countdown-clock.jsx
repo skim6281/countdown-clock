@@ -85,6 +85,11 @@ class Clock extends React.Component {
 
     let sec = delta % 60;
 
+    if(days < 10) days = `0${days}`;
+    if(hours < 10) hours = `0${hours}`;
+    if(minutes < 10) minutes = `0${minutes}`;
+    if(sec < 10) sec = `0${sec}`;
+
     return `${days}:${hours}:${minutes}:${sec}`;
   }
 
@@ -97,8 +102,8 @@ class Clock extends React.Component {
 
   render() {
     return(
-      <div>
-        <div>
+      <div className="clock">
+        <div className="counter">
           {this.convertSeconds(this.state.counter)}
         </div>
         <button onClick={this.handleCommit}>
